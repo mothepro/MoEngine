@@ -11,9 +11,9 @@
     "require": {
 		"php": ">=5.3.0",
 		
-		"tpyo/amazon-s3-php-class":	"Upload to AWS s3 (compile)",
-		"tedivm/jshrink":			"Minify JS (compile)",
-		"ps/image-optimizer":		"Image Optimization (compile)"
+		"tpyo/amazon-s3-php-class":	"*",
+		"tedivm/jshrink":			"~1.0",
+		"ps/image-optimizer":		"*"
 	},
 	"suggest": {
 		"ext-imagick": "Required for image manipulation",

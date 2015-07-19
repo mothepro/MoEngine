@@ -2,11 +2,46 @@
 /**
  * Compiles a project
  *
- * Merges and compresses CSS and JS into files by folder
- * Addes code to server in folder
+Mo's PHP Project Compiler!
+
+	-h		Print this help message.
+
+	Required
+		-c		Configuration file to use
+		-a		Composer Autoload file
+
+		-s		Host name of server to compile to
+		-p		Location of PPK file to connect to server
+		-l		Local Directory to load project
+		-d		Remote Directory to upload project
+
+		Composer Packages (Compression & Uploading)
+			tpyo/amazon-s3-php-class
+			tedivm/jshrink
+			ps/image-optimizer
+			apigen/apigen
+
+	Optional
+		-u		Directories to move from local to remote
+
+		-t		Template Directory
+		-y		Documentation Directory
+
+		-x		Compress static files
+		-0		Silent mode
+
+		-w		Local SASS Directory
+		-j		Local JS Directory
+		-i		Local Image Directory
+
+		-k		Amazon S3 Access Key Activates compression
+		-v		Amazon S3 Secret Key
+
+		-q		Remote Directory to save sass on server or S3
+		-e		Remote Directory to save js on server or S3
+		-r		Remote Directory to save images on server or S3
  *
  * @author Maurice Prosper <maurice.prosper@ttu.edu>
- * @package MoEngine
  */
 class Compiler {
 	/**
