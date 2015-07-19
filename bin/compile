@@ -8,7 +8,6 @@ Mo's PHP Project Compiler!
 
 	Required
 		-c		Configuration file to use
-		-a		Composer Autoload file
 
 		-s		Host name of server to compile to
 		-p		Location of PPK file to connect to server
@@ -47,7 +46,7 @@ HELP;
 set_time_limit(0);
 date_default_timezone_set('UTC');
 error_reporting(-1);
-$opt = getopt('hc:a:s:p:l:d:u:w:j:y:i:k:v:q:e:r:t:xm0');
+$opt = getopt('hc:s:p:l:d:u:w:j:y:i:k:v:q:e:r:t:xm0');
 
 // just needs a little help
 if(isset($opt['h'])) {
@@ -56,7 +55,7 @@ if(isset($opt['h'])) {
 }
 
 // missing requirments
-if(!isset($opt['a']) || !isset($opt['c']) || !isset($opt['s']) || !isset($opt['p']) || !isset($opt['d'])) {
+if(!isset($opt['c']) || !isset($opt['s']) || !isset($opt['p']) || !isset($opt['d'])) {
 	echo 'Error, missing required option.', PHP_EOL, PHP_EOL;
 	help();
 	exit(1);
@@ -64,8 +63,9 @@ if(!isset($opt['a']) || !isset($opt['c']) || !isset($opt['s']) || !isset($opt['p
 
 // install configuration
 require $opt['c']; // server app config
+require 'Compiler.php';
 
-$c = new MoEngine\Compiler;
+$c = new Compiler;
 $c	->setHost($opt['s'])
 	->setPpk($opt['p'])
 	->setRemote($opt['d'])

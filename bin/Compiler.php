@@ -1,6 +1,4 @@
 <?php
-namespace MoEngine;
-
 /**
  * Compiles a project
  *
