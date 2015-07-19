@@ -1,0 +1,106 @@
+<?php
+/**
+ * Help File
+ */
+function help() {
+	echo <<<HELP
+Mo's PHP Project Compiler!
+
+	-h		Print this help message.
+
+	Required
+		-c		Configuration file to use
+		-a		Composer Autoload file
+
+		-s		Host name of server to compile to
+		-p		Location of PPK file to connect to server
+		-l		Local Directory to load project
+		-d		Remote Directory to upload project
+
+		Composer Packages (Compression & Uploading)
+			tpyo/amazon-s3-php-class
+			tedivm/jshrink
+			ps/image-optimizer
+			apigen/apigen
+
+	Optional
+		-u		Directories to move from local to remote
+		
+		-t		Template Directory
+		-y		Documentation Directory
+
+		-x		Compress static files
+		-0		Silent mode
+
+		-w		Local SASS Directory
+		-j		Local JS Directory
+		-i		Local Image Directory
+
+		-k		Amazon S3 Access Key Activates compression
+		-v		Amazon S3 Secret Key
+
+		-q		Remote Directory to save sass on server or S3
+		-e		Remote Directory to save js on server or S3
+		-r		Remote Directory to save images on server or S3
+HELP;
+}
+
+// no errors wanted
+set_time_limit(0);
+date_default_timezone_set('UTC');
+error_reporting(-1);
+$opt = getopt('hc:a:s:p:l:d:u:w:j:y:i:k:v:q:e:r:t:xm0');
+
+// just needs a little help
+if(isset($opt['h'])) {
+	help();
+	exit;
+}
+
+// missing requirments
+if(!isset($opt['a']) || !isset($opt['c']) || !isset($opt['s']) || !isset($opt['p']) || !isset($opt['d'])) {
+	echo 'Error, missing required option.', PHP_EOL, PHP_EOL;
+	help();
+	exit(1);
+}
+
+// install configuration
+//require 'vendor/autoload.php';
+require $opt['a']; // composer autoloader
+require $opt['c']; // server app config
+
+$c = new MoEngine\Compiler;
+$c	->setHost($opt['s'])
+	->setPpk($opt['p'])
+	->setRemote($opt['d'])
+	->setLocal($opt['l']);
+
+// misc
+$c->setCompress(isset($opt['x']));
+$c->setSilent(isset($opt['0']));
+
+// clean up dumb function
+$opt['w'] = (isset($opt['w']) ? (is_array($opt['w']) ? $opt['w'] : array($opt['w'])) : []);
+$opt['j'] = (isset($opt['j']) ? (is_array($opt['j']) ? $opt['j'] : array($opt['j'])) : []);
+$opt['i'] = (isset($opt['i']) ? (is_array($opt['i']) ? $opt['i'] : array($opt['i'])) : []);
+$opt['u'] = (isset($opt['u']) ? (is_array($opt['u']) ? $opt['u'] : array($opt['u'])) : []);
+
+// add directories
+foreach($opt['w'] as $dir)	$c->addSASS($dir);
+foreach($opt['j'] as $dir)	$c->addJS($dir);
+foreach($opt['i'] as $dir)	$c->addImage($dir);
+foreach($opt['u'] as $dir)	$c->addMove($dir);
+
+if(isset($opt['t']))		$c->setLocalTpl($opt['t']);
+if(isset($opt['y']))		$c->setLocalDoc($opt['y']);
+
+// S3
+if(isset($opt['k']))		$c->setS3($opt['k'], $opt['v']);
+
+// remote
+if(isset($opt['q']))		$c->setRemoteSASS($opt['q']);
+if(isset($opt['e']))		$c->setRemoteJS($opt['e']);
+if(isset($opt['r']))		$c->setRemoteImage($opt['r']);
+
+// start
+$c->compile();
