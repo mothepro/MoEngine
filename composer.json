@@ -21,7 +21,8 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"MoEngine": "src/"
+			"MoEngine": "src/",
+			"Compiler": "bin/"
 		}
 	},
 	"bin": [

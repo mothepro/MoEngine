@@ -1,4 +1,5 @@
 <?php
+namespace Compiler;
 /**
  * Compiles a project
  *

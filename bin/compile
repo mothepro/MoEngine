@@ -63,9 +63,9 @@ if(!isset($opt['c']) || !isset($opt['s']) || !isset($opt['p']) || !isset($opt['d
 
 // install configuration
 require $opt['c']; // server app config
-require 'Compiler.php';
+require 'vendor/autoload.php';
 
-$c = new Compiler;
+$c = new Compiler\Compiler;
 $c	->setHost($opt['s'])
 	->setPpk($opt['p'])
 	->setRemote($opt['d'])
