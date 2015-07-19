@@ -1,0 +1,28 @@
+{
+    "name": "mothepro/mo-engine",
+    "description": "Simple OOP classes that help me out",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maurice Prosper",
+            "email": "maurice.prosper@ttu.edu"
+        }
+    ],
+    "require": {
+		"php": ">=5.3.0"
+	},
+	"suggest": {
+		"ext-imagick": "Required for image manipulation",
+		"ext-mysql": "Required for Database queries",
+		
+		
+		"tpyo/amazon-s3-php-class":	"Upload to AWS s3 (compile)",
+		"tedivm/jshrink":			"Minify JS (compile)",
+		"ps/image-optimizer":		"Image Optimization (compile)"
+	},
+	"autoload": {
+		"psr-4": {
+			"MoEngine": "src/"
+		}
+	}
+}
