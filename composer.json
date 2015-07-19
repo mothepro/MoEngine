@@ -23,5 +23,8 @@
 		"psr-0": {
 			"MoEngine": "src/"
 		}
-	}
+	},
+	"bin": [
+		"bin/compile"
+	]
 }

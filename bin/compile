@@ -1,7 +1,5 @@
+#!/usr/bin/env php
 <?php
-/**
- * Help File
- */
 function help() {
 	echo <<<HELP
 Mo's PHP Project Compiler!
@@ -65,8 +63,6 @@ if(!isset($opt['a']) || !isset($opt['c']) || !isset($opt['s']) || !isset($opt['p
 }
 
 // install configuration
-//require 'vendor/autoload.php';
-require $opt['a']; // composer autoloader
 require $opt['c']; // server app config
 
 $c = new MoEngine\Compiler;
