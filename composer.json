@@ -20,7 +20,7 @@
 		"ext-mysql": "Required for Database queries"
 	},
 	"autoload": {
-		"psr-4": {
+		"psr-0": {
 			"MoEngine": "src/"
 		}
 	}
