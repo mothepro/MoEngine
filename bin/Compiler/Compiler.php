@@ -482,7 +482,7 @@ class Compiler {
 						$data,
 						$bucket,
 						$info->getBasename(),
-						S3::ACL_PUBLIC_READ,
+						\S3::ACL_PUBLIC_READ,
 						array(),
 						[
 							'Content-Type'		=> $mime,
