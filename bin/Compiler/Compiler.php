@@ -201,7 +201,7 @@ class Compiler {
 	 */
 	private function start($message) {
 		if(!isset($this->status))
-			$this->status = new SplStack;
+			$this->status = new \SplStack;
 		
 		$this->status->push(microtime(true));
 		
@@ -324,7 +324,7 @@ class Compiler {
 					'--unix-newlines',
 
 					'--style',
-						($c ? 'compressed' : 'expanded -l'),
+						($c ? 'compressed' : 'expanded -l --sourcemap=none'),
 
 					$input,
 					$output,
@@ -446,7 +446,7 @@ class Compiler {
 		] as $bucket => $localDir) {
 			if(isset($this->s3)) {
 				foreach(glob($localDir . '*', GLOB_BRACE) as $file) {
-					$info = new SplFileInfo($file);
+					$info = new \SplFileInfo($file);
 					
 					$this->start('Putting '. $info->getBasename() .' on '. $bucket);
 
@@ -612,8 +612,8 @@ class Compiler {
 	 * @param string $dir
 	 */
 	private static function wipeDir($dir) {
-		$it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
-		$files = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST);
+		$it = new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS);
+		$files = new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST);
 		foreach($files as $file) 
 			if ($file->isDir())
 				rmdir($file->getRealPath());
@@ -661,7 +661,7 @@ class Compiler {
 	 * @param string $secret Amazon S3 Secret
 	 */
 	public function setS3($key = null, $secret = null) {
-		$this->s3 = new S3($key, $secret);
+		$this->s3 = new \S3($key, $secret);
 		$this->setCompress(true);
 	}
 	
